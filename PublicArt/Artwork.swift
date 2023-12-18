@@ -35,6 +35,7 @@ import SwiftUI
 
 struct Artwork {
   let id = UUID()
+
   let artist: String
   let description: String
   let locationName: String
@@ -43,30 +44,42 @@ struct Artwork {
   let imageName: String
   let coordinate: CLLocationCoordinate2D
   var reaction: String
-  
-//  init(
-//    artist: String,
-//    description: String,
-//    locationName: String,
-//    discipline: String,
-//    title: String,
-//    imageName: String,
-//    coordinate: CLLocationCoordinate2D,
-//    reaction: String
-//  ) {
-//    print(">>>>> Downloading \(imageName) <<<<<\n")
-//    self.artist = artist
-//    self.description = description
-//    self.locationName = locationName
-//    self.discipline = discipline
-//    self.title = title
-//    self.imageName = imageName
-//    self.coordinate = coordinate
-//    self.reaction = reaction
-//  }
-  
+
+  /*
+   init(
+     artist: String,
+     description: String,
+     locationName: String,
+     discipline: String,
+     title: String,
+     imageName: String,
+     coordinate: CLLocationCoordinate2D,
+     reaction: String
+   ) {
+     print(">>>>> Downloading \(imageName) <<<<<")
+     self.artist = artist
+     self.description = description
+     self.locationName = locationName
+     self.discipline = discipline
+     self.title = title
+     self.imageName = imageName
+     self.coordinate = coordinate
+     self.reaction = reaction
+   }
+   */
+
   func load() {
-    print(">>>>> Downloading \(self.imageName) <<<<<\n")
+    print(">>>>> Downloading \(self.imageName) <<<<<")
+  }
+}
+
+extension Artwork: Hashable {
+  static func == (lhs: Artwork, rhs: Artwork) -> Bool {
+    lhs.id == rhs.id
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
   }
 }
 
@@ -230,13 +243,3 @@ let artData = [
     reaction: "💕")
 ]
 // swiftlint:enable line_length
-
-extension Artwork: Hashable {
-  static func == (lhs: Artwork, rhs: Artwork) -> Bool {
-    lhs.id == rhs.id
-  }
-  
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(id)
-  }
-}
